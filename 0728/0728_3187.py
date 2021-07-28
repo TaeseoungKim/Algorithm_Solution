@@ -1,5 +1,7 @@
 # 출력은 옳게 나오지만 runtime error(recurion error)가 발생한다
 # 재귀를 줄여도 제출시에 에러가 나는데 이유를 모르겟다
+# 함수안에서 전역변수에 접근시에는 global 키워드로 지정해줘야 한다
+# 근데 왜 전역 리스트나 데크같은 것은 지정안해줘도 되지?
 
 low , column = map(int, input().split())
 
