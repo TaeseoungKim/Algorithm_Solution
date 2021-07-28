@@ -1,4 +1,5 @@
-# 제출시에 재귀에러가 나는데 왜 그런지 모르겟다..
+import sys
+sys.setrecursionlimit(1000000)
 
 T = int(input())
 
