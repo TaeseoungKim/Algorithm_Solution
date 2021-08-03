@@ -1,5 +1,6 @@
 # 알고리즘은 해결했지만 제출시에 value 오류가 난다.
 # 흠.. 리팩토링 필요
+# 다른 로직이 있는가?
 
 import sys
 sys.setrecursionlimit(1000000)

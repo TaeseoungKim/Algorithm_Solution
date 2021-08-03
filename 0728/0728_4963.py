@@ -1,9 +1,9 @@
 import sys
 sys.setrecursionlimit(1000000)
-#
+
 def dfs(i_row,i_col,board,max_row,max_col):
     board[i_row][i_col] = 0
-
+    
     for i in range(8):
         tmp_row = d_row[i] + i_row
         tmp_col = d_col[i] + i_col

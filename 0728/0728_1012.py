@@ -6,7 +6,7 @@ T = int(input())
 for idx_T in range(T):
     M, N, K = map(int, input().split())
     board = [[0] * M for _ in range(N)]
-    visit = [[0] * M for _ in range(N)]
+
 
     # 상하좌우
     d_row = [1, -1, 0, 0]
