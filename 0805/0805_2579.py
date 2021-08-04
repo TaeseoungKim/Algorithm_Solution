@@ -12,7 +12,9 @@ for _ in range(stair_cnt):
 result_list = [[0] for _ in range(stair_cnt+1)]
 visit_list = [ 0 for _ in range(stair_cnt+1) ]
 
-def stair(n , p_visit , p_sum):
+def stair(n , p_sum , p_able):
+
+    
     print("저는 %d 입니다 "%n)
     if stair_cnt < n :
         return
