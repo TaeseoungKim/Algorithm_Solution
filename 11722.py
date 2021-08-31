@@ -1,6 +1,7 @@
 import sys
 n = int(sys.stdin.readline())
 list = list(map(int,sys.stdin.readline().split()))
+
 dp = [ 1 for _ in range(n) ]
 
 for i in range(n):
