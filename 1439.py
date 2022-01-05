@@ -1,17 +1,23 @@
 import sys
-input= sys.stdin.readline
+input = sys.stdin.readline
 
-bit_list = list(map(int, input().strip()))
-len = bit_list.__len__()
-cnt = 0
+zero_area = 0
+one_area = 0
+current_area = 0
+S = input()
 
-for i in range(1,len):
-    if bit_list[i] == bit_list[i-1]:
-        continue
-    else:
-        cnt += 1
-
-if cnt%2 == 0:
-    print(cnt//2)
+current_area = S[0]
+if current_area=='0':
+    zero_area += 1
 else:
-    print(cnt//2 + 1) 
+    one_area += 1
+
+for i in range(1,len(S)-1):  
+    if S[i] != current_area:
+        if current_area== '0':
+            one_area += 1
+        else:
+            zero_area += 1
+        current_area = S[i]
+    
+print(min(int(zero_area),int(one_area)))
