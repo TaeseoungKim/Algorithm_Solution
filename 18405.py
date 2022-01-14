@@ -1,63 +1,40 @@
-import copy
+from collections import deque
+import sys
+input = sys.stdin.readline
 
-n, k = map(int, input().split())
-list_tmp = []
+N, K = map(int, input().split())
+board = [ 0 for _ in range(N) ]
+for _ in range(N):
+    board[_] = list(map(int, input().split()))
+S, X, Y = map(int, input().split())
+deq = deque([deque() for _ in range(K)] )
 
+move = [(0,1),(0,-1),(-1,0),(1,0)] 
 
-for i in range(n):
-    str_in = input()
-    list_tmp.extend(str_in.split())
+for y in range(N):
+    for x in range(N):
+        if board[y][x] != 0:
+            deq[board[y][x]-1].append((x,y))
 
-list_tmp = list(map(int, list_tmp))
-s, x, y = map(int, input().split())
-
-array = [[list_tmp[a*n + b] for b in range(n)] for a in range(n)]
-array_tmp = copy.deepcopy(array)
-
-for i in range(s):
-    
-    for a in range(n):
-        for b in range(n):
-
-            if array[a][b] == 0:
-                continue
-
-            if a-1 >= 0:
-                if array[a-1][b] != 0 :
-                    pass
-                elif array_tmp[a-1][b] > array[a][b] :
-                    array_tmp[a-1][b] = array[a][b]
-                elif array_tmp[a-1][b] == 0 :  # 다른 방법이 있는지
-                    array_tmp[a-1][b] = array[a][b]
-
+def bfs(K,S,X,Y):
+    sec = 0
+    while deq:
+        if sec >= S:
+            print(board[Y][X])
+            break
+        
+        for d in range(K):
+            for i in range(len(deq[d])):
+                x,y = deq[d].popleft()
                 
-
-            if a+1 < k:
-                if array[a+1][b] != 0 :
-                    pass
-                elif array_tmp[a+1][b] > array[a][b] :
-                    array_tmp[a+1][b] = array[a][b]
-                elif array_tmp[a+1][b] == 0 : 
-                    array_tmp[a+1][b] = array[a][b]
-
-            if b-1 >= 0:
-                if array[a][b-1] != 0 :
-                    pass
-                elif array_tmp[a][b-1] > array[a][b] : 
-                    array_tmp[a][b-1] = array[a][b]
-                elif array_tmp[a][b-1] == 0 : 
-                    array_tmp[a][b-1] = array[a][b]
-           
-            if b+1 < k:
-                if array[a][b+1] != 0 :
-                    pass
-                elif array_tmp[a][b+1] > array[a][b] :
-                    array_tmp[a][b+1] = array[a][b]
-                elif array_tmp[a][b+1] == 0 : 
-                    array_tmp[a][b+1] = array[a][b]
-    
-    array = copy.deepcopy(array_tmp)
-
-array = array_tmp
-
-print(array[x-1][y-1])
+                for tmp_x, tmp_y in move:
+                    #범위를 벗어날 시 continue
+                    if not(x+tmp_x >= 0 and x+tmp_x < N and y+tmp_y >= 0 and y+tmp_y < N) :
+                        continue
+                    if board[y+tmp_y][x+tmp_x] == 0:
+                        deq[d].append((x+tmp_x,y+tmp_y))
+                        board[y+tmp_y][x+tmp_x] = board[y][x]
+                    
+        sec += 1
+                    
+bfs(K,S,Y-1,X-1)
