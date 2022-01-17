@@ -13,7 +13,7 @@ move = [(0,1),(0,-1),(-1,0),(1,0)]
 
 for y in range(N):
     for x in range(N):
-        if board[y][x] != 0:
+        if board[y][x] != 0:    
             deq[board[y][x]-1].append((x,y))
 
 def bfs(K,S,X,Y):
