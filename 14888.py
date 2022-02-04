@@ -1,57 +1,46 @@
 import sys
-import copy
 input = sys.stdin.readline
 
-N = int(input())
-num_list = list(map(int, input().split()))
-op_list = list(map(int, input().split()))
-max_num, min_num = -10e10, 10e10
+n = int(input())
+# 연산을 수행하고자 하는 수 리스트
+data = list(map(int, input().split()))
+# 더하기, 빼기, 곱하기, 나누기 연산자 개수
+add, sub, mul, div = map(int, input().split())
 
-def check(copied_op,cur):
-    global max_num, min_num
-    if sum(copied_op) == 0:
-        max_num = max(max_num, cur)
-        min_num = min(min_num, cur)
+# 최솟값과 최댓값 초기화  
 
+min_value = 1e9
+max_value = -1e9
 
-def op_bfs(idx, opcode_list, cur):
-    global max_num, min_num
-    
-    
-    if opcode_list[0] != 0:
-        copied_op = copy.deepcopy(opcode_list)
-        copied_op[0] -= 1
-        tmp_cur = cur+num_list[idx]
-        op_bfs(idx+1,copied_op,tmp_cur)
-        check(copied_op,tmp_cur)
-        
-    if opcode_list[1] != 0:
-        copied_op = copy.deepcopy(opcode_list)
-        copied_op[1] -= 1
-        tmp_cur = cur-num_list[idx]
-        op_bfs(idx+1,copied_op,tmp_cur)
-        check(copied_op,tmp_cur)
+# 깊이 우선 탐색 (DFS) 메서드
+def dfs(i, now):
+    global min_value, max_value, add, sub, mul, div
+    # 모든 연산자를 다 사용한 경우, 최솟값과 최댓값 업데이트
+    if i == n:
+        min_value = min(min_value, now)
+        max_value = max(max_value, now)
+    else:
+        # 각 연산자에 대하여 재귀적으로 수행
+        if add > 0:
+            add -= 1
+            dfs(i + 1, now + data[i])
+            add += 1
+        if sub > 0:
+            sub -= 1
+            dfs(i + 1, now - data[i])
+            sub += 1
+        if mul > 0:
+            mul -= 1
+            dfs(i + 1, now * data[i])
+            mul += 1
+        if div > 0:
+            div -= 1
+            dfs(i + 1, int(now / data[i])) # 나눌 때는 나머지를 제거
+            div += 1
 
-    if opcode_list[2] != 0:
-        copied_op = copy.deepcopy(opcode_list)
-        copied_op[2] -= 1
-        tmp_cur = cur*num_list[idx]
-        op_bfs(idx+1,copied_op,tmp_cur)
-        check(copied_op,tmp_cur)
+# DFS 메서드 호출
+dfs(1, data[0])
 
-    if opcode_list[3] != 0:
-        copied_op = copy.deepcopy(opcode_list)
-        copied_op[3] -= 1
-        if cur < 0:
-            cur = abs(cur)
-            tmp_cur = -1*(cur//num_list[idx])
-        else:
-            tmp_cur = cur//num_list[idx]
-        op_bfs(idx+1,copied_op,tmp_cur)
-        check(copied_op,tmp_cur)
-
-    return
-
-op_bfs(1,op_list,num_list[0])
-print(max_num)
-print(min_num)
+# 최댓값과 최솟값 차례대로 출력
+print(max_value)
+print(min_value)
