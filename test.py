@@ -1,2 +1,2 @@
-if 1:
-    print("이게되네")
+for _ in range(0,0):
+    print("sasd?")
