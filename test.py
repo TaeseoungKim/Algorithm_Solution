@@ -1,2 +1,2 @@
-for _ in range(0,0):
-    print("sasd?")
+for _ in "siaba":
+    print(_)
