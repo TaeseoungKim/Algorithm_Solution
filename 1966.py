@@ -12,13 +12,17 @@ for _ in range(T):
         popped = deq.popleft()
         seq -= 1
 
-        if (seq == -1) or (not deq):
-            print("result",cnt)
-            break
+        #모두 인쇄 완료시
+        if not deq:
+           print(cnt) 
+           break
         elif max(deq) > popped:
             if seq == -1:
                 seq += len(deq)+1
             deq.append(popped)
             cnt -= 1
-        
+        elif seq == -1:
+            print(cnt)
+            break
+    
     

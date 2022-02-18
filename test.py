@@ -1,2 +1,4 @@
-for _ in "siaba":
-    print(_)
+
+x = 9e9
+
+print(10**0)
