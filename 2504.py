@@ -3,25 +3,16 @@ from collections import deque
 input = sys.stdin.readline
 inStr = input()
 deq = deque()
-cal = []
-result = 0
-v=0
 # 재귀함수로 푸는게 날듯하다
-def cal(grade):
-    tmp = 0
-    for i in range(len(cal)):
-        if i==0: tmp += cal[i]
-        else: tmp *= cal[i]
-    result += tmp
-    cal = []
-#(()[[]])([])
-
+lev = 0
+lev_sum = []
 for c in inStr:
-    deq.append(c)
+    if c == '(':
+        lev += 1
+        if len(lev_sum)!=lev:
+            lev_sum.append([])
+        deq.append(2)
     if c == ')':
-        if deq.pop() == '(':
-            break
-    elif c == ']':
-        if deq.pop() == '[':
-            break
-print(result)
+        lev -= 1
+        if  deq.pop() == 2:
+            lev_sum = sum(lev_sum[lev])
