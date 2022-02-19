@@ -12,7 +12,6 @@ for i in range(len(board)):
             if board[d]!=0:
                 cnt += 1
                 board[d]=0
-
             if cnt==k:
                 answer=d
                 break
