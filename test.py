@@ -1,4 +1,7 @@
-lev = 'gimothi'
-for _ in range(len(lev)):
-    lev[_] = '1'
-print(lev)
+def test(v):
+    v=3
+    
+v = 1
+print(v)
+test(v)
+print(v)

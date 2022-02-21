@@ -1,24 +1,28 @@
+import sys
 from collections import deque
-
+input = sys.stdin.readline
 MAX = 10**5
-start_x, end_x = map(int, input().split()) 
-visit = [0 for _ in range(MAX+1)] 
 
-deq = deque()    
-deq.append(start_x)    
+n, k = map(int, input().split())
+visit = [0]*(MAX+1)
 
-while deq.__len__() != 0:
-    pop_x = deq.popleft()
-    
-    if pop_x == end_x :
-        print(visit[end_x])
-        break
+#시간을 구해야하는 문제는 방문한 시간을 남기면 된다.
+def bfs():
+    global n,k
+    deq = deque()
+    deq.append(n)
 
-    for tmp_x in (pop_x-1, pop_x+1, pop_x*2):  # 체크
-        if (0 <= tmp_x <= MAX) != True:
-            continue
-        elif visit[tmp_x] == 0:
-            deq.append(tmp_x)
-            visit[tmp_x] = visit[pop_x] + 1
+    while deq:
+        pv = deq.popleft()
+        if pv == k:
+            print(visit[k])
+            return
+        for tmp in (pv+1,pv-1,pv*2):
+            if not (0<= tmp <= MAX) :
+                continue
+            elif visit[tmp]==0:
+                deq.append(tmp)
+                visit[tmp]=visit[pv]+1
 
-exit(0)
+bfs()
+
