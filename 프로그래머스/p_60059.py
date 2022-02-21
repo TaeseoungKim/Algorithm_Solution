@@ -53,9 +53,3 @@ def solution(key, lock):
                 continue
     return False
                     
-    
-key = [[0, 0, 0], [1, 0, 0], [0, 1, 1]]	
-lock = [[1, 1, 1], [1, 1, 0], [1, 0, 1]]
-n,m = 0,0
-
-solution(key,lock)
