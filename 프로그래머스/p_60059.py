@@ -12,7 +12,7 @@ def sum_check(key_board,board,n,m):
         return True
     else:
         return False
-
+    
 #0, 90, 180, 270도 바꿔가며 sum_check함수를 호출한다
 def check(key_board,board,n,m):
     if sum_check(key_board,board,n,m)==True:

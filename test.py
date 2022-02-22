@@ -1,2 +1,3 @@
-answer = list([[] for _ in range(3)] for _ in range(3))
-print(answer)
+a = [1] *9
+a[3]=3
+print(a)
