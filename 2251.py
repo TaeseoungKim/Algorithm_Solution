@@ -1,55 +1,53 @@
-
 from collections import deque
 import sys
 input = sys.stdin.readline
-#c의 물의 양은 a,b의 상태에 따라 결정된다
-#전체-(a+b)=c
-a,b,c = map(int, input().split())
-total = a+b+c
-visit = [[0]*(c+1) for _ in range(c+1)]
+
+a, b, c = map(int, input().split())
+visit = [[0]*(b+1) for i in range(a+1)]
+
+def pour(ta,tb,deq):
+    if visit[ta][tb]==1:
+        return False
+    else: 
+        visit[ta][tb]=1
+        deq.append((ta,tb))
+        return True
 result = [0]*(c+1)
-def bfs():
+
+def bfs(water):
     deq = deque()
-    deq.append((0,0))
-    
+    deq.append(water)
     while deq:
-        pa,pb = deq.popleft()
-        if pa==0: result[c-pb]=1
-
-        if visit[pa][pb]==1:
-            continue
-        else:
-            visit[pa][pb]=1
-
+        pa,pb = deq.pop()
+        if pa==0:
+            result[c-pa-pb]=1
+            
+        #빠지고 들어오는 양은 동일하므로 water변수에 담는다
         #a->b
-        if pa-(b-pb)<=0:#a를 모두 비움
-           deq.append((0,pa+pb))
-        else: #b가 꽉참
-            deq.append((pa-(b-pb),b))
-
-        #b->a
-        if pb-(a-pa)<=0:#b를 모두 비움
-           deq.append((pa+pb,0))
-        else:#a가 꽉참
-            deq.append((a,pb-(a-pa)))
+        water = min(pa,b-pb)
+        pour(pa-water,pb+water,deq)
         
+        #a->c
+        water = pa
+        pour(0,pb,deq)
+        
+        #b->a
+        water = min(a-pa,pb)
+        pour(pa+water,pb-water,deq)
+
+        #b->c
+        water = pb
+        pour(pa,0,deq)
         
         #c->a
-        if c-a-pb<=0:#c를 모두 비움
-           deq.append((c-pb,pb))
-        else:#a가 꽉참
-            deq.append((a,pb))
+        water = min(a-pa,c-(pa+pb))
+        pour(pa+water,pb,deq)
 
         #c->b
-        if c-b-pa<=0:#c를 모두 비움
-           deq.append((pa,c-pa))
-        else:#b가 꽉참
-            deq.append((pa,b))
+        water = min(b-pb,c-(pa+pb))
+        pour(pa,pb+water,deq)
 
-        deq.append((pa,0)) #b->c
-        deq.append((0,pb)) #a->c
-
-bfs()
-for i in range(1,c+1):
+bfs((0,0))
+for i in range(0,c+1):
     if result[i]==1:
         print(i,end=" ")
