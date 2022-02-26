@@ -25,3 +25,8 @@ board = [list(map(int, input())) for _ in range(n)]
 visit = [[[0] * 2 for _ in range(m)] for _ in range(n)]
 move = [(1,0),(-1,0),(0,1),(0,-1)]
 print(bfs(0,0,board,visit,move))
+
+for i in range(n):
+    for d in range(m):
+        print(visit[i][d][1],end=" ")
+    print()
