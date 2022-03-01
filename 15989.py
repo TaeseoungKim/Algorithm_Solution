@@ -1,21 +1,11 @@
-from collections import deque
+#우선, 1만 써서 합을 나타내는 방법 1가지씩은 모두 가지고 있으므로 dp 테이블을 1로 초기화해준다. 
+#그리고 2가 추가되는 경우dp[i] = dp[i] + dp[i - 2]와 3이 추가되는 경우dp[i] = dp[i] + dp[i - 3]를 한번씩 더 갱신해주면 된다.
+dp = [1]*10001
+for i in range(2, 10001):
+    dp[i] += dp[i - 2]
+for i in range(3, 10001):
+    dp[i] += dp[i - 3]
 t = int(input())
-def dfs(v):
-    #(1의 개수, 2의 개수, 3의 개수)
-    visited[(v,0,0)]=1
-    deq = deque()
-    deq.append((v,0,0))
-    cnt=0
-    while deq:
-        v1, v2, v3 = deq.pop()
-        cnt+=1
-        for next_v1, next_v2, next_v3 in [(v1-2,v2+1,v3),(v1-3,v2,v3+1)]:
-            if 0<=next_v1 and 0<=next_v2 and 0<=next_v3 and (next_v1,next_v2,next_v3) not in visited.keys():
-                visited[(next_v1,next_v2,next_v3)]=1
-                deq.append((next_v1,next_v2,next_v3))
-    return cnt
-
 for _ in range(t):
     v = int(input())
-    visited = dict()
-    print(dfs(v))
+    print(dp[v])
