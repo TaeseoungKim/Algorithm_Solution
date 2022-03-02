@@ -1,20 +1,18 @@
 import sys
-n = int(sys.stdin.readline())
-t = []
-p = []
-dp = [ 0 for _ in range(n+1) ]
+input = sys.stdin.readline
 
+n = int(input())
+board = []
+dp = [0]*(n+1)
 for _ in range(n):
-    tmp_t, tmp_p = map(int , sys.stdin.readline().split())
-    t.append(tmp_t)
-    p.append(tmp_p)
+    board.append(list(map(int, input().split())))
 
-M = 0
+# M에 현재까지 벌어들인 최대 수익을 갱신해주는게 문제의 핵심!!
+M=0
 for i in range(n):
-    M = max(dp[i],M)
-    if t[i] + i > n:
-        continue
-    # 지금꺼 적용할 때 vs 원래거
-    dp[i+t[i]] = max(M + p[i] , dp[i + t[i]] )
-
+    next = i+board[i][0]
+    M = max(M,dp[i])
+    if next>n: continue
+    dp[next]=max(dp[next],M+board[i][1])
 print(max(dp))
+print(dp)
