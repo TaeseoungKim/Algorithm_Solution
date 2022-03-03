@@ -1,1 +1,1 @@
-print(str(1))
+print(abs(-3))
