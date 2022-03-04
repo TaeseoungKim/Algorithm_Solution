@@ -1,5 +1,3 @@
-from turtle import left
-
 
 def solution(phone_book):
     phone_book.sort(key=len)    
