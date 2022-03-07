@@ -1,5 +1,3 @@
-# dp는 min, max를 적극 활용
-
 n = int(input())
 dp = [0 , 0 , 1 , 1 ]
 for i in range(4,n+1,1):
