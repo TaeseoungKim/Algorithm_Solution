@@ -1,22 +1,25 @@
-from collections import deque
-import heapq
+# https://www.acmicpc.net/source/39048615
 n=int(input())
-scv_hp = list(map(int,input().split()))
-heapq.heapify(scv_hp)
-deq = deque()
-damage = [9,1,3]
+tmp_hp = list(map(int,input().split()))
+scv_hp = [0]*3
+for i in range(n):
+    scv_hp[i]=tmp_hp[i]
 
-result=0
-while n!=0:
-    tmp = 0
-    result+=1
-    print(scv_hp,result)
-    for i in range(n-1,-1,-1):
-        tmp = heapq.heappop(scv_hp)-damage[i]
-        if tmp>0:
-            deq.append(tmp)
-        else: n-=1
+cnt=0
+hp_dict = dict()
 
-    while deq: heapq.heappush(scv_hp,deq.pop())
+min_V = 999
+def dfs(hp,cnt):
+    global min_V
+    t1,t2,t3 = hp
+    if t1<=0 and t2<=0 and t3<=0:
+        if min_V>cnt:
+            min_V=cnt
+        return
 
-print(result)
+    for next_t1,next_t2,next_t3 in [(t1-9,t2-3,t3-1),(t1-9,t2-1,t3-3),(t1-3,t2-1,t3-9),(t1-3,t2-9,t3-1),(t1-1,t2-3,t3-9),(t1-1,t2-9,t3-3)]:
+        if hp_dict.get((next_t1,next_t2,next_t3,cnt+1))==None:
+            hp_dict[(next_t1,next_t2,next_t3,cnt+1)]=1
+            dfs((next_t1,next_t2,next_t3),cnt+1)
+dfs(scv_hp,cnt)
+print(min_V)
