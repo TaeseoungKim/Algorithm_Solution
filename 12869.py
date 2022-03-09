@@ -6,6 +6,7 @@ MAX_HP = 61
 tmp_hp = list(map(int,input().split()))
 visited = [[[MAX_HP]*MAX_HP for _ in range(MAX_HP)] for _ in range(MAX_HP)]
 
+
 def dp(position):
     for i in range(3):
         if position[i]<0:
@@ -14,6 +15,10 @@ def dp(position):
         return 0
 
     least=visited[position[0]][position[1]][position[2]]
+    
+    if least != MAX_HP:
+        return least
+
     for attack in when:
         least = min(least, dp([position[0]-attack[0],position[1]-attack[1],position[2]-attack[2]]))
 
