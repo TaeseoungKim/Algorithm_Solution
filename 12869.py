@@ -1,25 +1,27 @@
 # https://www.acmicpc.net/source/39048615
+# dp문제는 되도록이면 메모리를 많이 쓰더라도, 속도면에서 dp를 쓰는 것이 현명하다.
+when = [[1,3,9],[1,9,3],[3,1,9],[3,9,1],[9,3,1],[9,1,3]]
 n=int(input())
+MAX_HP = 61
 tmp_hp = list(map(int,input().split()))
-scv_hp = [0]*3
+visited = [[[MAX_HP]*MAX_HP for _ in range(MAX_HP)] for _ in range(MAX_HP)]
+
+def dp(position):
+    for i in range(3):
+        if position[i]<0:
+            position[i]=0
+    if sum(position)==0:
+        return 0
+
+    least=visited[position[0]][position[1]][position[2]]
+    for attack in when:
+        least = min(least, dp([position[0]-attack[0],position[1]-attack[1],position[2]-attack[2]]))
+
+    least+=1
+    visited[position[0]][position[1]][position[2]]=least
+    return least
+
+p = [0]*3
 for i in range(n):
-    scv_hp[i]=tmp_hp[i]
-
-cnt=0
-hp_dict = dict()
-
-min_V = 999
-def dfs(hp,cnt):
-    global min_V
-    t1,t2,t3 = hp
-    if t1<=0 and t2<=0 and t3<=0:
-        if min_V>cnt:
-            min_V=cnt
-        return
-
-    for next_t1,next_t2,next_t3 in [(t1-9,t2-3,t3-1),(t1-9,t2-1,t3-3),(t1-3,t2-1,t3-9),(t1-3,t2-9,t3-1),(t1-1,t2-3,t3-9),(t1-1,t2-9,t3-3)]:
-        if hp_dict.get((next_t1,next_t2,next_t3,cnt+1))==None:
-            hp_dict[(next_t1,next_t2,next_t3,cnt+1)]=1
-            dfs((next_t1,next_t2,next_t3),cnt+1)
-dfs(scv_hp,cnt)
-print(min_V)
+    p[i] = tmp_hp[i]
+print(dp(p))
