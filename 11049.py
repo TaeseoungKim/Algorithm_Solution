@@ -3,7 +3,6 @@ board = list()
 for _ in range(n):
     board.append(tuple(map(int, input().split())))
 MAX_VALUE = 2**31-1
-visited = [0]*n
 
 def dp(board,n):
     if n==1:
