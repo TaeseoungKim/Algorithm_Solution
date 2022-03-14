@@ -5,6 +5,7 @@ board = [int(input()) for _ in range(n)]
 dp = [-1]*(k+1)
 dp[0] = 0
 
+
 for won in range(k):
     if dp[won]==-1 :
         continue
