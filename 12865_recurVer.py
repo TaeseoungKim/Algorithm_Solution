@@ -2,7 +2,6 @@ import sys
 input = sys.stdin.readline
 n,k = map(int, input().split())
 bag = [ list(map(int, input().split())) for _ in range(n)]
-print(bag)
 visited = [0]*(n+1)
 max_V = 0
 def solution(idx,wei,v):
