@@ -4,9 +4,14 @@ str1 = list(input().strip())
 str2 = list(input().strip())
 len1 = len(str1)
 len2 = len(str2)
-dp = [[0]*len2 for _ in range(len1)]
-for i in range(len1):
-    for d in range(len2):
-        if str1[i]==str2[d]:
-            dp[i][d] = max(dp[i][d]+1, )
-    
+dp = [[0]*(len1+1) for _ in range(len2+1)]
+
+for i in range(1,len2+1):
+    for d in range(1,len1+1):
+        char1 = str1[d-1]
+        char2 = str2[i-1]
+        if char1==char2:
+            dp[i][d] = dp[i-1][d-1]+1
+        else:
+            dp[i][d] = max(dp[i-1][d],dp[i][d-1])
+print(dp[len2][len1])
