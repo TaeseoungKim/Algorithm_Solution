@@ -1,3 +1,5 @@
+# https://suri78.tistory.com/11 엑셀표 참고
+# https://myjamong.tistory.com/317 풀이 참고
 import sys
 input = sys.stdin.readline
 str1 = list(input().strip())
