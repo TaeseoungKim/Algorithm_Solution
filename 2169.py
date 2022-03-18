@@ -31,6 +31,8 @@ def solution(row):
             dp[row][i] = max(dp[row-1][i],temp[i-1][0])+board[row][i]
             continue
         dp[row][i] = max(dp[row-1][i],temp[i-1][0],temp[i+1][1])+board[row][i]
+
+#지저분한 예외처리.. ㅎㅎ
 if n==1 and m==1:
     print(board[0][0])
 elif m==1:
