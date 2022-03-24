@@ -1,16 +1,6 @@
+import sys
+input = sys.stdin.readline
+str_1 = list(input().strip())
 
-
-def cal(n):
-    n=100
-    print(n)
-    return
-
-visit = [3]
-visited = 30
-# print(visit)
-# cal(visit)
-# print(visit)
-
-print(visited)
-cal(visited)
-print(visited)
+print(str_1)
+print(''.join(str(str_1)))
