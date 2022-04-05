@@ -24,7 +24,6 @@ def bfs(v):
     while bfs_deq:
         p = bfs_deq.popleft()
         print(p,end=" ")
-            
         for i in range(1,n+1):
             if visit[i] != 1 and m_list[p][i]==1:
                 bfs_deq.append(i)
