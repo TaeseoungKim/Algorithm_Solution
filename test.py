@@ -1,6 +1,3 @@
-import sys
-input = sys.stdin.readline
-str_1 = list(input().strip())
-
-print(str_1)
-print(''.join(str(str_1)))
+str1 = "helllo"
+saaaa = 30123
+print('5' in str(saaaa))

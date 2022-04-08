@@ -16,6 +16,7 @@ else:
         print("1:",word)
         print(word[4:-4])
         for idx, c in enumerate(word[4:-4]):
+            
 
         
     
