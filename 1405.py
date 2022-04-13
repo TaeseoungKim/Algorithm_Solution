@@ -33,7 +33,7 @@ def dfs(cur_x,cur_y,visit,cnt):
             print("투")
             dfs(next_x,next_y,dict(visit),cnt+1)
         else:
-            falseCNT += 1
+            falsecnt += 1
         allCNT+=1
         if allCNT==n:
             return
