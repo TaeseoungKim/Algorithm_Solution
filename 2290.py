@@ -33,3 +33,4 @@ for i in range(s):
 for i in range(len(n)):
     print(down[int(n[i])],end=" ")
 print()
+
