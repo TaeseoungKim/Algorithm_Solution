@@ -8,25 +8,15 @@ for i in range(2,n+1):
             a[j] = False
 board = [0]*len(primes)
 answ=0
-left, right= 0,len(primes)-1
-dp = [[0]*(n+1) for _ in range(n+1)]
-#아 뒤부터 해야되겟구나
+left,right=0,0
 
-for i in range(len(primes)):
-    board[i]=primes[i]
-    for d in range(i+1,len(primes)):
-        if dp[i][d]!=0:
-            continue
-        else:
-            if primes[d]==n:
-                answ+=1
-                break
-            board[d]=board[d-1]+primes[d]
-            dp[i][d]=board[d]
-            if board[d]==n:
-                answ+=1
-                break
-            elif board[d]>n:
-                break
-    board = [0]*len(primes)
+while right < len(primes):
+    sumV=sum(primes[left:right+1])
+    if sumV==n:
+        answ+=1
+        right+=1
+    elif sumV>n:
+        left+=1
+    else:
+        right+=1
 print(answ)
