@@ -1,19 +1,16 @@
 import sys
 input = sys.stdin.readline
-
 N = int(input())
-T, P, result = [], [], [0 for _ in range(N)]
-for _ in range(N):
-    day, value = map(int, input().split())
-    T.append(day)
-    P.append(value)
-print(P)
-
+T, P = [],[]
+board = [0]*(N+1)
 for i in range(N):
-    if T[i] + i > N:
-        continue
+    t, p = map(int, input().split())
+    T.append(t)
+    P.append(p)
+maxV=0
+for i in range(N-1,-1,-1):
+    if N < i+T[i]:
+        board[i]=board[i+1]
     else:
-        result[T[i]+i] = max(result[i]+P[T[i]+i], result[T[i]+i]) 
-
-print(result)
-print(max(result))
+        board[i]=max(board[i+1],P[i]+board[i+T[i]])
+print(board[0])
