@@ -1,11 +1,4 @@
-import sys
-from collections import deque
-input = sys.stdin.readline
-
-STR = input()
-print(STR,len(STR))
-STR2 = STR.rstrip()
-
-
-
-print(STR2,len(STR2))
+board = [0]
+for i in range(1,101,1):
+    board.append(i)
+print(board[1:10])
