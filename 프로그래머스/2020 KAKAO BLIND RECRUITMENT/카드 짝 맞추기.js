@@ -4,12 +4,12 @@ let board = [
   [0, 0, 0, 2],
   [3, 0, 1, 0],
 ];
+
 let r = 1;
 let c = 0;
-
 let curPos = [r, c];
 
-// 상하좌우
+// 상하좌ㅇ우
 const move = [
   [-1, 0],
   [1, 0],
@@ -38,6 +38,7 @@ const FindCard_bfs = (curPos, board) => {
     const [y, x, cnt] = queue.shift();
     visited[y][x] = 1;
     console.log("y,x,cnt", y, x, cnt);
+
     let endPoint = [
       [0, x],
       [y, 0],
