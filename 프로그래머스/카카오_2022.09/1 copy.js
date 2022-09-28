@@ -1,3 +1,5 @@
+// 나중에 프로그래머스 올라오면 맞는지 확인하기
+
 cap = 4;
 n = 5;
 deliveries = [1, 0, 3, 1, 2];
@@ -8,7 +10,7 @@ solution(cap, n, deliveries, pickups);
 function solution(cap, n, deliveries, pickups) {
   result = 0;
 
-  while (!(deliveries.length == 0 && deliveries.length == 0)) {
+  while (!(deliveries.length == 0 && pickups.length == 0)) {
     let del_endIdx = deliveries.length - 1;
     let pick_endIdx = pickups.length - 1;
     let curCap = cap;
@@ -65,6 +67,6 @@ function solution(cap, n, deliveries, pickups) {
 
     result += delDist + pickDist;
   }
-
+  console.log(result);
   return result;
 }

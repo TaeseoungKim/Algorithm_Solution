@@ -4,7 +4,6 @@ function solution(users, emoticons) {
 
   result = [];
   let ResultArray = [];
-
   recursion(0, []);
 
   function recursion(idx, curDiscout) {
