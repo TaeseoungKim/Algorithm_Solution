@@ -1,9 +1,20 @@
-상담원으로 일하고 있는 백준이는 퇴사를 하려고 한다.
+const fs = require("fs");
+const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
+let input = fs.readFileSync(filePath).toString().split("\n");
+let n = Number(input[0]);
+let T = [];
+let P = [];
 
-오늘부터 N+1일째 되는 날 퇴사를 하기 위해서, 남은 N일 동안 최대한 많은 상담을 하려고 한다.
+let board = new Array(n + 1).fill(0);
+for (let i = 1; i <= n; i++) {
+  let [t, p] = input[i].split(" ").map((value) => Number(value));
+  T.push(t);
+  P.push(p);
+}
 
-백준이는 비서에게 최대한 많은 상담을 잡으라고 부탁을 했고, 비서는 하루에 하나씩 서로 다른 사람의 상담을 잡아놓았다.
+for (let i = n - 1; i >= 0; i--) {
+  if (n < i + T[i]) board[i] = board[i + 1];
+  else board[i] = Math.max(board[i + 1], P[i] + board[i + T[i]]);
+}
 
-각각의 상담은 상담을 완료하는데 걸리는 기간 Ti와 상담을 했을 때 받을 수 있는 금액 Pi로 이루어져 있다.
-
-N = 7인 경우에 다음과 같은 상담 일정표를 보자.
+console.log(Math.max(...board));
