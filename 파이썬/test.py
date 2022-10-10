@@ -1,4 +1,10 @@
-board = [0]
-for i in range(1,101,1):
-    board.append(i)
-print(board[1:10])
+from collections import deque
+
+dddd = deque()
+dddd.append([3, 1])
+dddd.append([3, 1])
+dddd.append([3, 1])
+dddd.append([3, 1])
+dddd.append([3, 1])
+dddd.append([3, 1])
+print(dddd)
