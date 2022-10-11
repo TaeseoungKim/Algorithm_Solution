@@ -22,12 +22,12 @@ def printDice():
 
 def moveDir(dir):
     global curDir
-    if dir == "left":
+    if dir == "left":  # 시계
         if curDir == 4:
             curDir = 1
         else:
             curDir += 1
-    elif dir == "right":
+    elif dir == "right":  # 반시계
         if curDir == 1:
             curDir = 4
         else:
