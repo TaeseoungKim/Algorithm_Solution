@@ -48,6 +48,7 @@ def solution(logs):
 
         if len(logs)-1 == i:
             # 마지막로그
+            # 마지막로그
             answ += checkBingo(Dbingo)+checkBingo(Wbingo)+checkBingo(Mbingo)
 
     return answ
