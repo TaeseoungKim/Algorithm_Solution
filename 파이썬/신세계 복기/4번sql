@@ -1,0 +1,6 @@
+select ID
+from game_users
+where ID not in
+(select distinct user_id
+from payments)
+order by id

@@ -2,30 +2,24 @@ from itertools import combinations, product
 from copy import deepcopy
 from collections import deque
 import sys
-
 input = sys.stdin.readline
 
 N, M = map(int, input().split())
 board = [list(map(int, input().split())) for i in range(N)]
 visited = [[False for d in range(M)] for i in range(N)]
-
 virus = []
 for i in range(N):
     for d in range(M):
         if board[i][d] == 2:
             virus.append((i, d))
-
-
 prodResult = list(product(list(range(N)), list(range(M))))
 allComb = list(combinations(prodResult, 3))
 
 
 def bfs(pos, board, visited):
-
     queue = deque()
     queue.append(pos)
     visited[pos[0]][pos[1]] = True
-
     while queue:
         px, py = queue.popleft()
 
@@ -40,7 +34,6 @@ def bfs(pos, board, visited):
 
 
 maxSafe = 0
-
 for wall_1, wall_2, wall_3 in allComb:
     x1, y1 = wall_1
     x2, y2 = wall_2
@@ -52,16 +45,12 @@ for wall_1, wall_2, wall_3 in allComb:
         newBoard[x2][y2] = 1
         newBoard[x3][y3] = 1
         newMax = 0
-
         for vx, vy in virus:
             if newVisited[vx][vy] == False:
                 bfs((vx, vy), newBoard, newVisited)
-
         for i in range(N):
             for d in range(M):
                 if newBoard[i][d] == 0:
                     newMax += 1
-
         maxSafe = max(maxSafe, newMax)
-
 print(maxSafe)

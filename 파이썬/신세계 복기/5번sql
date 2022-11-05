@@ -1,0 +1,6 @@
+select ID, NAME
+from places
+where id in (select distinct place_id
+from place_reviews
+where comments like "%cozy%")
+order by places.ID
