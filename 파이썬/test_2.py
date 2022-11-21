@@ -1,5 +1,5 @@
 from collections import deque
-N = 3
+N = 5
 
 board = [[0 for d in range(N)] for i in range(N)]
 for i in range(N):
@@ -7,18 +7,16 @@ for i in range(N):
 
 
 def bfs(pos):
-    visited = [[False for d in range(N)] for i in range(N)]
-    x, y = pos
-    visited[x][y] = True
     queue = deque()
     queue.append(pos)
+    x, y = pos
+    visited = [[False for d in range(N)] for i in range(N)]
+    visited[x][y] = True
 
     while queue:
         px, py = queue.popleft()
-        for i in range(N):
-            print(visited[i])
-        print()
-        print()
+        if px == N-1 and py == N-1:
+            return True
 
         for tx, ty in [(px+1, py), (px, py+1), (px-1, py), (px, py-1)]:
             if 0 <= tx < N and 0 <= ty < N and not visited[tx][ty]:
@@ -27,4 +25,3 @@ def bfs(pos):
 
 
 bfs((0, 0))
-# def dfs()
