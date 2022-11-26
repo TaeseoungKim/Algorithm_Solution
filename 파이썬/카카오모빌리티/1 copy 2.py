@@ -40,3 +40,8 @@ def solution(s, times):
     date_diff = tempDate - newTempDate
 
     return [savingPerDay, date_diff.days+1]
+
+
+t1 = solution("2021:04:29:16:08:35", [
+              "01:00:00:00", "01:00:00:00", "01:00:00:00", "01:00:00:00"])  # [0,4]
+print(t1)
