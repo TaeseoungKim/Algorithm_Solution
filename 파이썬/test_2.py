@@ -14,7 +14,12 @@ def bfs(pos):
     visited[x][y] = True
 
     while queue:
-        px, py = queue.popleft()
+        px, py = queue.pop()
+
+        for i in range(len(visited)):
+            print(visited[i])
+        print()
+
         if px == N-1 and py == N-1:
             print("도착!")
             return True

@@ -2,7 +2,6 @@ import datetime
 
 
 def solution(s, times):
-
     savingPerDay = 1
     curDate = datetime.datetime.strptime(s, '%Y:%m:%d:%H:%M:%S')
     print("curDate", curDate)
