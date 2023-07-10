@@ -1,68 +1,75 @@
-from collections import deque
 import sys
+from collections import deque
 input = sys.stdin.readline
+SPACE, APPLE = 0,1 # 0 보드, 1 사과
 
-#보드크기, 사과개수
-n = int(input())
-k = int(input())
-board = list([0]*n for _ in range(n) )
-# 뱀의 시작 위치
-board[0][0] = 1
+boardLen = int(input())
+appleCnt = int(input())
+apples = []
+for i in range(appleCnt):
+    x,y = map(int, input().split())
+    apples.append((x-1,y-1))
 
-for _ in range(k):
-    y,x = map(int, input().split())
-    board[y][x] = 2
-l = int(input())
-snake_move = deque()
+bites = []
 
-for _ in range(l):
-    time, direction = input().split()
-    snake_move.append((int(time),direction))
+moveCnt =  int(input())
+moveQueue = deque()
+for i in range(moveCnt):
+    x,c = input().split()
+    x = int(x)
+    moveQueue.append((x,c))
 
-#상우하좌 (시계방향), 현재 방향
-move = [(-1,0), (0,1), (1,0), (0,-1)]
-cur_dir = 1
-# 시간초, 뱀의 머리/꼬리
-cnt=0
-head = [0,0]
-tail = [0,0]
-gameover=0
+moveDirection = [(0,1),(1,0),(0,-1),(-1,0)]
+curMove = 0
 
-for _ in range(len(snake_move)):
-    time, direction = snake_move.popleft()
-    while True:
+sneakQueue = deque()
+curHead = (0,0)
+sneakQueue.append(curHead)
+
+curTime = 0
 
 
-        cnt += 1
-        if time==cnt:
-            if direction=='L':
-                if cur_dir == 0:
-                    cur_dir = 3
-                else: cur_dir -= 1
-
-            elif direction=='D':
-                if cur_dir == 3:
-                    cur_dir = 0
-                else: cur_dir += 1
-            cnt -= 1
-            break
-
-        head[0] += move[cur_dir][0]
-        head[1] += move[cur_dir][1]
-
-        if not(0 <= head[0] < n) or not(0 <= head[1] < n) or (board[head[0]][head[1]] == 1):
-            print(cnt+1)
-            gameover = 1
-            break
-        elif board[head[0]][head[1]] == 2:
-            board[head[0]][head[1]] = 1
+def isEnd(x,y):
+    if not (0<=x<boardLen and 0<=y<boardLen):
+        return True
+    if (x,y) in sneakQueue:
+        return True
         
-        else: 
-            board[head[0]][head[1]] = 1
-            board[tail[0]][tail[1]] = 0
         
-            tail[0] += move[cur_dir][0]
-            tail[1] += move[cur_dir][1]
 
-    if gameover==1:
+while True:
+    curX,curY = curHead
+
+    if moveQueue:
+        pTime, pMove = moveQueue[0]
+        if pTime==curTime:
+            moveQueue.popleft()
+            if pMove=="L":
+                if curMove==0:
+                    curMove=3
+                else:
+                    curMove -= 1
+            elif pMove=="D":
+                if curMove==3:
+                    curMove=0
+                else:
+                    curMove += 1
+    
+    nextX, nextY = curX+moveDirection[curMove][0],curY+moveDirection[curMove][1]
+
+    if isEnd(nextX,nextY):
+        curTime+=1
         break
+    else:
+        if (nextX, nextY) in apples and (nextX, nextY) not in bites:      
+            sneakQueue.appendleft((nextX,nextY))
+            bites.append((nextX, nextY))
+
+        else:
+            sneakQueue.appendleft((nextX,nextY))
+            sneakQueue.pop()
+        curHead = (nextX, nextY)
+    
+    curTime+=1
+
+print(curTime)
