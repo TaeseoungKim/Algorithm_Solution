@@ -1,5 +1,4 @@
 import sys
-from collections import deque
 input = sys.stdin.readline
 
 M, N = map(int, input().split())
@@ -8,6 +7,9 @@ visited = [[False for _ in range(M)] for _ in range(N)]
 pathBoard = [[(0,0) for _ in range(M)] for _ in range(N)]
 
 MinBreakedWall = 10000
+
+
+
 
 
 def dfs(pos,breakedWall):
@@ -22,11 +24,6 @@ def dfs(pos,breakedWall):
     for nx, ny in [(x+1,y),(x,y+1),(x-1,y),(x,y-1)]:
         if not (0 <= nx < N and 0 <= ny < M) or visited[nx][ny]:
               continue
-        
-        nexDist, nextBW = pathBoard[nx][ny]
-        
-        pathBoard[nx][ny] = pathBoard[x][y]+1
-
         
         if board[nx][ny] == '0': # 방
             visited[nx][ny]=True
