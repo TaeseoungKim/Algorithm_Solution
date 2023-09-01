@@ -8,12 +8,8 @@ n = 1
 reqs = [[5, 55, 1], [10, 90, 1], [10, 40, 1], [50, 45, 1], [100, 50, 1]]
 
 def initAllCase(allCase, curCase, kIndex, maxK, nIndex, maxN):
-    if maxN < nIndex:
-        return
-    
     tempCurCase = deepcopy(curCase)
     tempCurCase[kIndex] += 1
-    
     
     if nIndex == maxN:
         allCase.append(tempCurCase)
@@ -41,8 +37,12 @@ def getWaitTime(mentoCase, reqs):
 
 def solution(k, n, reqs):
     allCase = []
-    for i in range(k):
-        initAllCase(allCase, [1 for _ in range(k)], i, k, 1, n-k)
+
+    if n-k == 0:
+        allCase.append([1 for _ in range(k)])
+    else:
+        for i in range(k):
+            initAllCase(allCase, [1 for _ in range(k)], i, k, 1, n-k)
     
     minWait = sys.maxsize
 
