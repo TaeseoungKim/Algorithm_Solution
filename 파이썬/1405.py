@@ -1,48 +1,37 @@
-from collections import deque
 import sys
+sys.setrecursionlimit(100000)
 input = sys.stdin.readline
 
-# 2 25 25 25 25
-# 동서남북
-n, a, b, c, d = map(int, input().split())
-a = -1 if a!=0 else 0
-b = 1 if b!=0 else 0
-c = -1 if c!=0 else 0
-d = 1 if d!=0 else 0
-print("엥",a,b,c,d)
-# x축, y축
-board = []
-cur = (0,0)
-visit = dict()
 
-allCNT = 0
-falseCNT = 0
+def move(cnt, curPosition):
+    global isSimple, isNotSimple, x, X, y, Y
+    visited[curPosition] = True
 
-def dfs(cur_x,cur_y,visit,cnt):
-    global allCNT,falseCNT
-    allcnt, falsecnt = 0,0
-    if cnt==n:
-        return
-    visit[(cur_x,cur_y)]=1
-    
-    for next_x, next_y in [(cur_x,cur_y+a),(cur_x,cur_y+b),(cur_x+c,cur_y),(cur_x+d,cur_y)]:
-        if cur_x == next_x and cur_y == next_y:
-            print("원")
+    for t in range(4):
+        dir = [(0, 1), (0, -1), (1, 0), (-1, 0)][t]
+        nextPosition = (curPosition[0]+dir[0], curPosition[1]+dir[1])
+
+        # 갈 곳이 방문했던 곳이면 종료하고 심플하지 않다.
+        if nextPosition in visited:
+            isNotSimple += [x, X, y, Y][t]
             continue
-        if visit.get((next_x,next_y))==None:
-            print("투")
-            dfs(next_x,next_y,dict(visit),cnt+1)
-        else:
-            falsecnt += 1
-        allCNT+=1
-        if allCNT==n:
-            return
 
-dfs(visit)
-print("음",falseCNT,allCNT)
-if allCNT==0:
-    print("뭐여시벌")
-else:
-    print(falseCNT/allCNT)
+        if cnt-1 == 0:  # 갈 곳이 방문했던 곳이 아니므로 심플하다.
+            isSimple += [x, X, y, Y][t]
+            continue
+
+        move(cnt-1, nextPosition)
+        del visited[nextPosition]
 
 
+N, x, X, y, Y = map(int, input().split())
+
+visited = dict()
+
+isSimple = 0
+isNotSimple = 0
+
+move(N, (0, 0))
+print("isSimple", isSimple)
+print("isNotSimple", isNotSimple)
+print(isSimple/(isSimple+isNotSimple))
